@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  iVideoSwiftDemo
 //
-//  Created by Redbytes on 12/05/17.
-//  Copyright © 2017 Redbytes. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import UIKit
@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        self.window?.rootViewController = HomeWireFrame.setupHomeModule()
         return true
     }
 

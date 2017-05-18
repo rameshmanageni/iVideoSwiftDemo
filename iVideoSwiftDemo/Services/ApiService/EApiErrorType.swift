@@ -1,9 +1,9 @@
 //
 //  ECallbackErrorType.swift
-//  Mezuka
+//  iVideoSwiftDemo
 //
-//  Created by Hasan H. Topcu on 21/09/2016.
-//  Copyright © 2016 Mezuka. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation

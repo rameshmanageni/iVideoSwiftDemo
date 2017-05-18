@@ -1,37 +1,48 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 
-final class OrdersListPresenter: OrdersListPresenterProtocol, OrdersListInteractorOutputProtocol {
-    weak var view: OrdersListViewProtocol?
-    var interactor: OrdersListInteractorInputProtocol?
-    var wireFrame: OrdersListWireFrameProtocol?
+final class HomePresenter: HomePresenterProtocol, HomeInteractorOutputProtocol {
+    weak var view: HomeViewProtocol?
+    var interactor: HomeInteractorInputProtocol?
+    var wireFrame: HomeWireFrameProtocol?
     
     init() {}
     
-    func notifyViewWillAppear() {
+    func notifyViewDidLoad() {
+        let viewModel = view?.getAlbumId()
+        let message = "Processing".localized(in: "HomeView")
+        view?.displayProgress(message: message)
+
         DispatchQueue.global().async {
-         self.interactor?.getOrdersList()
+            self.interactor?.getVideoListWith(model:viewModel!)
         }
     }
     
-    func notifyQuickOrdersButtonTapped() {
-        wireFrame?.navigateToQuickOrdersModule()
+    func notifyLoadMore() {
+        let viewModel = view?.getAlbumId()
+        let message = "LoadingMore".localized(in: "HomeView")
+        view?.displayProgress(message: message)
+        
+        DispatchQueue.global().async {
+            self.interactor?.getVideoListWith(model:viewModel!)
+        }
     }
-    
-    func notifyOrderSelected() {
-        wireFrame?.navigateToOrderInfoBaseModule()
+
+    func notifyVideoSelected() {
     }
-    
-    func onOrdersListFetchingFailed(error: EApiErrorType) {
-        let message = "Unsuccessful".localized(in: "AddressesList")
+
+    func onHomeFetchingFailed(error: EApiErrorType) {
+        view?.dismissProgress()
+        let message = "Unsuccessful".localized(in: "HomeView")
         view?.displayErrorMessage(message: message)
     }
     
-    func onOrdersListFetchingSucceeded(data: [OrdersListViewOutputModel]) {
-        view?.ordersListDetails(details: data)
+    func onHomeFetchingSucceeded(data: [HomeViewOutputModel]) {
+        view?.dismissProgress()
+        view?.setVideoDetails(details: data)
     }
 }

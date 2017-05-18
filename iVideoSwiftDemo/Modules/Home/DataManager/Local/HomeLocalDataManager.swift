@@ -1,10 +1,10 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 
-final class OrdersListLocalDataManager: OrdersListLocalDataManagerInputProtocol {
+final class HomeLocalDataManager: HomeLocalDataManagerInputProtocol {
     init() {}
 }

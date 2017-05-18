@@ -1,10 +1,11 @@
 //
 //  ApiServiceProtocol.swift
-//  Mezuka
+//  iVideoSwiftDemo
 //
-//  Created by Hasan H. Topcu on 21/09/2016.
-//  Copyright © 2016 Mezuka. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
+
 import Foundation
 import SwiftyJSON
 
@@ -19,20 +20,4 @@ protocol ApiServiceProtocol {
              headers: [String : String]?,
              converter: ((JSON) -> Any)?,
              callback: @escaping (ECallbackResultType) -> Void)
-    
-    func update(url: String,
-                parameters: [String : Any]?,
-                headers: [String : String]?,
-                callback: @escaping (ECallbackResultType) -> Void)
-    
-    func create(_ url: String,
-                parameters: [String : Any]?,
-                headers: [String : String]?,
-                converter: ((JSON) -> Any)?,
-                callback: @escaping (ECallbackResultType) -> Void)
-    
-    func delete(url: String,
-                parameters: [String : Any]?,
-                headers: [String : String]?,
-                callback: @escaping (ECallbackResultType) -> Void)
 }

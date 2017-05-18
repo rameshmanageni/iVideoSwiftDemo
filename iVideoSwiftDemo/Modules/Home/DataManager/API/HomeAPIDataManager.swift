@@ -1,24 +1,23 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 
-final class OrdersListAPIDataManager: OrdersListAPIDataManagerInputProtocol {
-    let mApiService: ApiServiceProtocol = ApiService()
-    let mOrdersApiConverter = OrdersListModelConverter()
+final class HomeAPIDataManager: HomeAPIDataManagerInputProtocol {
+    let apiService: ApiServiceProtocol = ApiService()
+    let homeApiConverter = HomeModelConverter()
 
-    func getOrdersList(callback: @escaping (ECallbackResultType) -> Void) {
+    func getVideoListWith(model: HomeViewModel, callback: @escaping (ECallbackResultType) -> Void) {
         do {
-            let user = UserService.sharedInstance.getAuthenticatedUser()
-            let token = user != nil ? user!.token : ""
+            let parameters = ["page": model.pageNumber] as [String : Any]
+            let url: String = try apiService.constructApiEndpoint(base: iVideoDemoConfig.BASE_API_URL, params: model.albumId, "videos.json", queries: parameters as! [String : String])
+
+            let headers = apiService.constructHeader()
             
-            let url: String = try mApiService.constructApiEndpoint(base: MezukaConfig.BASE_API_URL, params: "user_profile", "orders")
-            let headers = mApiService.constructHeader(withAccessToken: token)
-            
-            mApiService.get(
-                url: url, headers: headers, converter: { (json) -> Any in return self.mOrdersApiConverter.fromJson(json: json) as [OrdersListViewOutputModel] }, callback: callback)
+            apiService.get(
+                url: url, headers: headers, converter: { (json) -> Any in return self.homeApiConverter.fromJson(json: json) as [HomeViewOutputModel] }, callback: callback)
         } catch {
             // Change it with the real error
             callback(.Failure(.UnknownError))

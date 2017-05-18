@@ -1,9 +1,6 @@
 //
-//  Date+RelativeTime.swift
-//  ExpertConnect
-//
-//  Created by Redbytes on 21/01/17.
-//  Copyright © 2017 user. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation

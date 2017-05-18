@@ -1,20 +1,16 @@
 //
-//  OrdersListViewOutputModel.swift
-//  Mezuka
-//
-//  Created by VikasRedbytes on 06/02/17.
-//  Copyright © 2017 Mezuka. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 
-final class OrdersListViewOutputModel {
-    var streetAddress: String = ""
-    var unit: String = ""
-    var zipcode: String = ""
-    var city: String = ""
-    var state: String = ""
-    var country: String = ""
-    var isOpen: Bool = true
-    var states = [String]()
+final class HomeViewOutputModel {
+    
+    var title: String = ""
+    var description: String = ""
+    var uploadDate: String = ""
+    var userName: String = ""
+    var thumbnailImage: String = ""
+    var userPortrait: String = ""
 }

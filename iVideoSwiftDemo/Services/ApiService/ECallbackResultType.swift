@@ -1,9 +1,9 @@
 //
 //  ECallbackResultType.swift
-//  Mezuka
+//  iVideoSwiftDemo
 //
-//  Created by Hasan H. Topcu on 04/01/16.
-//  Copyright © 2016 Kinetica. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation

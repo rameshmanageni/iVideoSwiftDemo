@@ -1,9 +1,9 @@
 //
 //  UIViewController+AlertController.swift
-//  Mezuka
+//  iVideoSwiftDemo
 //
-//  Created by Hasan H. Topcu on 20/10/2016.
-//  Copyright © 2016 Mezuka. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import UIKit
@@ -59,7 +59,7 @@ extension UIViewController {
         let progressHUD: MBProgressHUD? = MBProgressHUD.showAdded(to: self.view, animated: true)
         
         progressHUD!.mode = .text
-        progressHUD!.bezelView.color = UIColor.mezukaSuccessGreen
+        progressHUD!.bezelView.color = UIColor.iVideoSuccessGreen
         progressHUD!.label.font = UIFont(name: "SF UI Text Semibold", size: 16)
         progressHUD!.label.text = message
         progressHUD!.label.textColor = UIColor.white
@@ -87,8 +87,8 @@ extension UIViewController {
         let progressHUD: MBProgressHUD? = MBProgressHUD.showAdded(to: self.view, animated: true)
         
         progressHUD!.mode = .text
-        progressHUD!.bezelView.color = UIColor.mezukaErrorRed
-        progressHUD!.label.font = UIFont(name: "SF UI Text Semibold", size: 16)
+        progressHUD!.bezelView.color = UIColor.iVideoErrorRed
+        //progressHUD!.label.font = UIFont(name: "SF UI Text Semibold", size: 16)
         progressHUD!.label.text = message
         progressHUD!.label.textColor = UIColor.white
         

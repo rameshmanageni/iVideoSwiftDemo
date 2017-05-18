@@ -1,22 +1,16 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 
-final class OrdersListViewModel {
-    var orderStatus: String = ""
-    var orderDateTime: String = ""
-    var orderID: String = ""
-    var billTotal: String = ""
-    var orderFrom: String = ""
+final class HomeViewModel {
+    var albumId: String = ""
+    var pageNumber: String = ""
     
-    init(orderStatus: String, orderDateTime: String, orderID: String, billTotal: String, orderFrom: String) {
-        self.orderStatus = orderStatus
-        self.orderDateTime = orderDateTime
-        self.orderID = orderID
-        self.billTotal = billTotal
-        self.orderFrom = orderFrom
+    init(albumId: String, pageNumber: String) {
+        self.albumId = albumId
+        self.pageNumber = pageNumber
     }
 }

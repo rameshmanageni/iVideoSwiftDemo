@@ -1,9 +1,8 @@
-/* 
-  OrdersListView.strings
-  Mezuka
+//
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
+//
 
-  Created by VikasRedbytes on 16/01/17.
-  Copyright © 2017 Mezuka. All rights reserved.
-*/
-"Unsuccessful" = "Unsuccessful";
-"Delivery Time" = "Delivery Time";
+"Unsuccessful" = "No More Feed Available";
+"Processing" = "Loading";
+"LoadingMore" = "Loading More Feed";

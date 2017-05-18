@@ -1,24 +1,24 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 
-final class OrdersListInteractor: OrdersListInteractorInputProtocol {
-    weak var presenter: OrdersListInteractorOutputProtocol?
-    var APIDataManager: OrdersListAPIDataManagerInputProtocol?
-    var localDataManager: OrdersListLocalDataManagerInputProtocol?
+final class HomeInteractor: HomeInteractorInputProtocol {
+    weak var presenter: HomeInteractorOutputProtocol?
+    var APIDataManager: HomeAPIDataManagerInputProtocol?
+    var localDataManager: HomeLocalDataManagerInputProtocol?
     
     init() {}
     
-    func getOrdersList() {
-        APIDataManager?.getOrdersList(callback: { (result) in
+    func getVideoListWith(model: HomeViewModel) {
+        APIDataManager?.getVideoListWith(model: model, callback: { (result) in
             switch result {
             case .Failure(let error):
-                self.presenter?.onOrdersListFetchingFailed(error: error)
-            case .Success(let data as [OrdersListViewOutputModel]):
-                self.presenter?.onOrdersListFetchingSucceeded(data: data)
+                self.presenter?.onHomeFetchingFailed(error: error)
+            case .Success(let data as [HomeViewOutputModel]):
+                self.presenter?.onHomeFetchingSucceeded(data: data)
             default:
                 break
             }

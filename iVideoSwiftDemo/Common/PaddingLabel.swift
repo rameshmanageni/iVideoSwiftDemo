@@ -1,9 +1,6 @@
 //
-//  PaddingLabel.swift
-//  Mezuka
-//
-//  Created by Redbytes on 31/03/17.
-//  Copyright © 2017 Mezuka. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation

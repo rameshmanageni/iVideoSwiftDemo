@@ -1,26 +1,36 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 import UIKit
+import Kingfisher
 
-final class OrdersListView: UITableViewController, OrdersListViewProtocol {
-    var presenter: OrdersListPresenterProtocol?
-    /** to resize cell */
-    var labelHeight: CGFloat = 0
+final class HomeView: UITableViewController, HomeViewProtocol {
+    var presenter: HomePresenterProtocol?
+    var videoDetailsModelArray = [HomeViewOutputModel]()
+    var pageNumber: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.activateHamburgerIcon()
-        self.activateMyOrderIcon()
-        self.activateSearchIcon()
-        self.tableView.separatorStyle = .none
+        self.presenter?.notifyViewDidLoad()
+        //self.tableView.separatorStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.presenter?.notifyViewWillAppear()
+    }
+    
+    func setVideoDetails(details: [HomeViewOutputModel]) {
+        videoDetailsModelArray.append(contentsOf:details)
+        self.tableView.reloadData()
+    }
+    
+    func getAlbumId() -> HomeViewModel {
+        return HomeViewModel(
+            albumId: "58",
+            pageNumber: String(pageNumber)
+        )
     }
 
     // MARK: - UITableView Delegate and DataSource
@@ -29,66 +39,58 @@ final class OrdersListView: UITableViewController, OrdersListViewProtocol {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return videoDetailsModelArray.count
     }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 80.0
-    }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120 - labelHeight
+        return 230.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OrdersListTableViewCell", for: indexPath) as! OrdersListTableViewCell
-        /** for testing purpose: - to change Order Status and its logo image accordingly */
-        let statusArray = ["COMPLETE", "IN PROGRESS", "AWAITING", "CANCELED"]
-        let randomIndex = Int(arc4random_uniform(UInt32(statusArray.count)))
-        print(statusArray[randomIndex])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
+        let videoDomainModel = videoDetailsModelArray[indexPath.row]
         
-        cell.orderStatusLabel.text = statusArray[randomIndex]
-        cell.orderStatusLogo.image = statusLogoColor(colorCode: cell.orderStatusLabel.text!)
+        cell.title.text = videoDomainModel.title.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        cell.videoDescription.text = videoDomainModel.description
+        cell.userName.text = videoDomainModel.userName
+        cell.thumbnailImage.kf.setImage(with: URL(string: videoDomainModel.thumbnailImage))
+        cell.userImage.kf.setImage(with: URL(string: videoDomainModel.userPortrait))
         
-        if cell.orderStatusLabel.text != "IN PROGRESS" && cell.orderStatusLabel.text != "AWAITING" {
-            cell.pickupDeliveryTimeLabel.isHidden = true
-            cell.pickupDeliveryLabel.isHidden = true
-            labelHeight = cell.orderStatusLabel.frame.size.height
-        } else {
-            if cell.orderStatusLabel.text == "AWAITING" {
-                cell.pickupDeliveryLabel.text = "Delivery Time".localized(in: "OrdersListView")
-            }
-            cell.pickupDeliveryTimeLabel.isHidden = false
-            cell.pickupDeliveryLabel.isHidden = false
-            labelHeight = 0
-        }
-        
-        /** To add custom separator to TableViewCell */
-        if indexPath.row != 0 { cell.addSeparatorLine() }
-        cell.selectionStyle = .none
+        let dateString = videoDomainModel.uploadDate
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateObj = dateFormatter.date(from: dateString)
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "dd/MM/yyyy - hh:mm a"
+        let calendar =  Calendar(identifier: .gregorian)
+        let date1 = calendar.date(from: DateComponents(year: calendar.component(.year, from: dateObj!), month: calendar.component(.month, from: dateObj!), day: calendar.component(.day, from: dateObj!), hour: calendar.component(.hour, from: dateObj!), minute: calendar.component(.minute, from: dateObj!)))!
+        let timeOffset = date1.relativeTime // "1 year ago"
+        cell.uploadDate.text = timeOffset
+
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let oredersTitleCell = tableView.dequeueReusableCell(withIdentifier: "OrdersListTitleViewCell") as! OrdersListTitleViewCell
-        oredersTitleCell.quickOrdersButton.addTarget(self, action: #selector(self.onQuickOrdersButtonTapped), for: .touchUpInside)
-        return oredersTitleCell
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.notifyOrderSelected()
+       presenter?.notifyVideoSelected()
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = videoDetailsModelArray.count - 1
+        if indexPath.row == lastElement {
+            pageNumber += 1
+            self.presenter?.notifyLoadMore()
+        }
     }
     
-    func onQuickOrdersButtonTapped() {
-        presenter?.notifyQuickOrdersButtonTapped()
+    override func displayProgress(message: String) {
+        super.displayProgress(message: message)
     }
     
-    func ordersListDetails(details: [OrdersListViewOutputModel]) {
-        
+    override func dismissProgress() {
+        super.dismissProgress()
     }
-    
+
     func displayErrorMessage(message: String) {
-        self.showStylishErrorMessage(message: message)
+        super.showErrorMessage(message: message)
     }
-    
 }

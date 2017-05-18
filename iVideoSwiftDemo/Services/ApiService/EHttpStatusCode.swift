@@ -1,9 +1,9 @@
 //
 //  EHttpStatusCode.swift
-//  Mezuka
+//  iVideoSwiftDemo
 //
-//  Created by Hasan H. Topcu on 16/12/15.
-//  Copyright © 2016 Kinetica. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation

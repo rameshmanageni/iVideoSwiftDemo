@@ -1,74 +1,75 @@
 //
-// Created by hhtopcu.
-// Copyright (c) 2016 hhtopcu. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-protocol OrdersListViewProtocol: class {
-    var presenter: OrdersListPresenterProtocol? { get set }
+protocol HomeViewProtocol: class {
+    var presenter: HomePresenterProtocol? { get set }
     /**
      * Add here your methods for communication PRESENTER -> VIEW
      */
     func displayErrorMessage(message: String)
-    func ordersListDetails(details: [OrdersListViewOutputModel])
+    func setVideoDetails(details: [HomeViewOutputModel])
+    func displayProgress(message: String)
+    func dismissProgress()
+    func getAlbumId() -> HomeViewModel
 }
 
-protocol OrdersListWireFrameProtocol: class {
+protocol HomeWireFrameProtocol: class {
     weak var view: UIViewController? {get set}
-    static func setupOrdersListModule() -> UIViewController
+    static func setupHomeModule() -> UIViewController
     /**
      * Add here your methods for communication PRESENTER -> WIREFRAME
      */
-    func navigateToQuickOrdersModule()
-    func navigateToOrderInfoBaseModule()
 }
 
-protocol OrdersListPresenterProtocol: class {
-    var view: OrdersListViewProtocol? { get set }
-    var interactor: OrdersListInteractorInputProtocol? { get set }
-    var wireFrame: OrdersListWireFrameProtocol? { get set }
+protocol HomePresenterProtocol: class {
+    var view: HomeViewProtocol? { get set }
+    var interactor: HomeInteractorInputProtocol? { get set }
+    var wireFrame: HomeWireFrameProtocol? { get set }
     /**
      * Add here your methods for communication VIEW -> PRESENTER
      */
-    func notifyViewWillAppear()
-    func notifyQuickOrdersButtonTapped()
-    func notifyOrderSelected()
-}
+    func notifyViewDidLoad()
+    func notifyLoadMore()
+    func notifyVideoSelected()
+ }
 
-protocol OrdersListInteractorOutputProtocol: class {
+protocol HomeInteractorOutputProtocol: class {
     /**
      * Add here your methods for communication INTERACTOR -> PRESENTER
      */
-    func onOrdersListFetchingFailed(error: EApiErrorType)
-    func onOrdersListFetchingSucceeded(data: [OrdersListViewOutputModel])
+    func onHomeFetchingFailed(error: EApiErrorType)
+    func onHomeFetchingSucceeded(data: [HomeViewOutputModel])
 }
 
-protocol OrdersListInteractorInputProtocol: class {
-    var presenter: OrdersListInteractorOutputProtocol? { get set }
-    var APIDataManager: OrdersListAPIDataManagerInputProtocol? { get set }
-    var localDataManager: OrdersListLocalDataManagerInputProtocol? { get set }
+protocol HomeInteractorInputProtocol: class {
+    var presenter: HomeInteractorOutputProtocol? { get set }
+    var APIDataManager: HomeAPIDataManagerInputProtocol? { get set }
+    var localDataManager: HomeLocalDataManagerInputProtocol? { get set }
     /**
      * Add here your methods for communication PRESENTER -> INTERACTOR
      */
-    func getOrdersList()
+    func getVideoListWith(model: HomeViewModel)
 }
 
-protocol OrdersListDataManagerInputProtocol: class {
+protocol HomeDataManagerInputProtocol: class {
     /**
      * Add here your methods for communication INTERACTOR -> DATAMANAGER
      */
 }
 
-protocol OrdersListAPIDataManagerInputProtocol: class {
+protocol HomeAPIDataManagerInputProtocol: class {
     /**
      * Add here your methods for communication INTERACTOR -> APIDATAMANAGER
      */
-    func getOrdersList(callback: @escaping (ECallbackResultType) -> Void)
+    func getVideoListWith(model: HomeViewModel, callback: @escaping (ECallbackResultType) -> Void)
 }
 
-protocol OrdersListLocalDataManagerInputProtocol: class {
+protocol HomeLocalDataManagerInputProtocol: class {
     /**
      * Add here your methods for communication INTERACTOR -> LOCALDATAMANAGER
      */

@@ -1,9 +1,9 @@
 //
 //  String+DynamicHeight.swift
-//  ExpertConnect
+//  iVideoSwiftDemo
 //
-//  Created by Supriya on 05/01/17.
-//  Copyright © 2016 user. All rights reserved.
+// Created by Ramesh Manageni.
+// Copyright (c) 2017 Ramesh Manageni. All rights reserved.
 //
 
 import Foundation

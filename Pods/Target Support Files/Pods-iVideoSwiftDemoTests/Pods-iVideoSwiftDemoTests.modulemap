@@ -1,0 +1,6 @@
+framework module Pods_iVideoSwiftDemoTests {
+  umbrella header "Pods-iVideoSwiftDemoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
